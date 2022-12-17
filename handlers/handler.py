@@ -10,8 +10,8 @@ dp = Dispatcher(bot=bot)
 @dp.message_handler(commands=config.COMMANDS['START'])
 async def start_handler(message: types.Message):
     user_id = message.from_user.id
+    user_full_name = message.from_user.full_name
     if check_sub_channel(await bot.get_chat_member(chat_id=config.CHANNEL_ID, user_id=user_id)):
-        user_full_name = message.from_user.full_name
         await message.answer(text=f"Hello, {user_full_name}.\nYou pushed the start button\n")
     else:
         await message.answer(text=f"Вы не подписаны на группу {config.CHANNEL_LINK}. "
