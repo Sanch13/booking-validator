@@ -4,21 +4,22 @@ from aiogram import Bot, Dispatcher, types
 
 
 bot = Bot(token=config.API_TELEGRAM_TOKEN)
-dp = Dispatcher(bot=bot)
+dispatcher = Dispatcher(bot=bot)
 
 
-@dp.message_handler(commands=config.COMMANDS['START'])
+@dispatcher.message_handler(commands=config.COMMANDS['START'])
 async def start_handler(message: types.Message):
     user_id = message.from_user.id
     user_full_name = message.from_user.full_name
     if check_sub_channel(await bot.get_chat_member(chat_id=config.CHANNEL_ID, user_id=user_id)):
-        await message.answer(text=f"Hello, {user_full_name}.\nYou pushed the start button\n")
+        text = f"Hello, {user_full_name or ''}.\nYou pushed the start button\n"
+        await message.answer(text=text)
     else:
-        await message.answer(text=f"Вы не подписаны на группу {config.CHANNEL_LINK}. "
-                                  f"Подпишитесь!!!")
+        text = f"Вы не подписаны на группу {config.CHANNEL_LINK}. Подпишитесь!!!"
+        await message.answer(text=text)
 
 
-@dp.message_handler(commands=config.COMMANDS['HELP'])
+@dispatcher.message_handler(commands=config.COMMANDS['HELP'])
 async def help_handler(message: types.Message):
     user_full_name = message.from_user.full_name
     await message.answer(text=f'Hi, {user_full_name}.\nYou pushed the help button')
