@@ -22,4 +22,5 @@ async def start_handler(message: types.Message):
 @dispatcher.message_handler(commands=config.COMMANDS['HELP'])
 async def help_handler(message: types.Message):
     user_full_name = message.from_user.full_name
-    await message.answer(text=f'Hi, {user_full_name}.\nYou pushed the help button')
+    text = f'Hi, {user_full_name}.\nYou pushed the help button'
+    await message.answer(text=text)
