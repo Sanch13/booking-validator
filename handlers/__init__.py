@@ -1,3 +1,3 @@
-from handlers import handler_commands
-from handlers import handler_send_photo
-from handlers import handler_just_text
+from . import handler_commands
+from . import handler_send_photo
+from . import handler_just_text

@@ -1,9 +1,10 @@
 from settings import config
 from logic_server.middleware import check_sub_channel
-from init_bot import bot
-from aiogram import types, Dispatcher
+from init_bot import bot, dispatcher
+from aiogram import types
 
 
+@dispatcher.message_handler(commands=['start'])
 async def start_handler(message: types.Message):
     user_id = message.from_user.id
     user_full_name = message.from_user.full_name
@@ -17,6 +18,7 @@ async def start_handler(message: types.Message):
         await message.delete()
 
 
+@dispatcher.message_handler(commands=['help'])
 async def help_handler(message: types.Message):
     user_full_name = message.from_user.full_name
     text = f"Привет, {user_full_name or ''}.\n" \
@@ -24,8 +26,3 @@ async def help_handler(message: types.Message):
            f"Подпишись на группу и отправляй изображения!"
     await message.answer(text=text)
     await message.delete()
-
-
-def register_handler_commands(dispatcher: Dispatcher):
-    dispatcher.register_message_handler(start_handler, commands=config.COMMANDS['START'])
-    dispatcher.register_message_handler(help_handler, commands=config.COMMANDS['HELP'])
