@@ -6,7 +6,6 @@ class Settings(BaseSettings):
     LINK_BOT: str
     CHANNEL_LINK: str
     CHANNEL_ID: str
-    ANSWER_NOT_SUB: str
 
     class Config:
         env_file = ".env"
