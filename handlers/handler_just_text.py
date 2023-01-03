@@ -7,6 +7,6 @@ from init_bot import dispatcher
 @message_del
 @check_subscribe
 async def reply_just_text(message: Message) -> None:
-    text = f"Вы можете отправлять только изображения и команды :"
-    # + get_all_bot_commands(commands=settings.COMMANDS)
+    text = f"Вы можете отправлять только изображения и команды :" \
+           f"\n/start\n/help"
     await message.answer(text=text)

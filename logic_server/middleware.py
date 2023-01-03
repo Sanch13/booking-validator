@@ -4,7 +4,7 @@ from settings import settings
 
 
 def check_subscribe(func):
-    async def wrapper(message: Message, *args, **kwargs):
+    async def wrapper(message: Message):
         user_full_name = message.from_user.full_name
         user_id = message.from_user.id
         status = await bot.get_chat_member(chat_id=settings.CHANNEL_ID, user_id=user_id)
