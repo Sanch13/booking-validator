@@ -1,9 +1,11 @@
+import re
 from aiogram.types import Message
 from init_bot import bot
 from settings import settings
 
 
 def check_subscribe(func):
+    """Checking user subscribing on the group or channel"""
     async def wrapper(message: Message):
         user_full_name = message.from_user.full_name
         user_id = message.from_user.id
@@ -18,8 +20,18 @@ def check_subscribe(func):
     return wrapper
 
 
-def message_del(func):
+def delete_user_message(func):
+    """Delete message from user"""
     async def wrapper(message: Message):
         await func(message)
         await message.delete()
     return wrapper
+
+
+def get_all_bot_commands() -> str:
+    """Return all the bot commands"""
+    path_to_file = "handlers/handler_commands.py"
+    with open(path_to_file, 'r', encoding='utf-8') as file:
+        text = file.read()
+        list_commands = re.findall(r"""commands=\['([\D]*?)'\]""", text)
+    return ''.join("\n/" + command for command in list_commands)
